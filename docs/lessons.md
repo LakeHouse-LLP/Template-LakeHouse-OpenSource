@@ -45,3 +45,15 @@ Status values: `open` | `fixed` | `promoted`.
 - **Lesson:** Renaming the GitHub repo (Template-OpenSource → Template-LakeHouse-OpenSource) leaves README AUTO, CITATION.cff, and CHANGELOG compare URLs pointing at the old name until `readme:gen` / `citation:gen` run.
 - **Action:** Regenerate AUTO blocks from the current remote after any rename; keep product prose "Template-OpenSource" where it names the template kind, not the GitHub slug.
 - **Status:** fixed
+
+### 2026-10-10 - changesets/action needs Actions create-PR setting
+
+- **Lesson:** With `@changesets/cli` v3 and `changesets/action` v2, push to `main` versions packages and updates `changeset-release/main`, then fails with "GitHub Actions is not permitted to create or approve pull requests" unless that Sen-only workflow permission is on.
+- **Action:** Document in `docs/sen-only-github-settings.md`. Workflow uses `continue-on-error` on the create step plus a warning so main CI stays green until Sen flips the toggle (or opens the Version PR by hand).
+- **Status:** fixed
+
+### 2026-10-10 - changesets CLI 3 changelog path is relative to .changeset/
+
+- **Lesson:** `@changesets/cli` 3 (ESM) resolves `changelog` in `.changeset/config.json` from the `.changeset/` directory, so `./scripts/changeset-changelog.mjs` looks for `.changeset/scripts/...` and fails. Use `../scripts/changeset-changelog.mjs`.
+- **Action:** Updated config on the CLI 3 Dependabot branch before merge.
+- **Status:** fixed
