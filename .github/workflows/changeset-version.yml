@@ -58,7 +58,13 @@ jobs:
 
       - name: Create Version PR or CI tag
         # Never run on pull_request or merge_group — only after land on main.
+        # continue-on-error: GITHUB_TOKEN cannot open PRs until Sen enables
+        # "Allow GitHub Actions to create and approve pull requests"
+        # (docs/sen-only-github-settings.md). The action still versions and
+        # pushes changeset-release/main; only PR create may fail.
+        id: changesets
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           version-script: npm run changeset:version
@@ -70,3 +76,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+
+      - name: Warn if version PR step failed
+        if: >
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          steps.changesets.outcome == 'failure'
+        run: |
+          echo "::warning::changesets/action failed (often: Actions cannot create PRs)."
+          echo "Enable Settings → Actions → General → Allow GitHub Actions to create and approve pull requests"
+          echo "(Sen-only; see docs/sen-only-github-settings.md), or open a PR from changeset-release/main."
+

@@ -14,6 +14,7 @@ Agents and contributors must not change these via API, UI, or automation unless 
 - [ ] Tag rulesets for release tags (`v*`)
 - [ ] Private vulnerability reporting on
 - [ ] Merge commits only (squash/rebase off)
+- [ ] **Allow GitHub Actions to create and approve pull requests** (Settings → Actions → General → Workflow permissions). Required so `changesets/action` can open the Version PR on push to `main`. Without it, version files still land on `changeset-release/main` but PR create fails.
 - [ ] **Merge queue** required on `main` (public repos only — Free plan). Ruleset checklist below.
 - [ ] npm **OIDC trusted publishing** configured for packages (no long-lived npm tokens)
 - [ ] After metadata is set: flip `DISCOVERABILITY_REQUIRE_METADATA` to `"true"` in discoverability/CI workflows

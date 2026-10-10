@@ -32,5 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changeset status on PRs compares against the PR base ref so stacked PRs validate.
 - Dependabot PRs: skip strict changelog and changeset-status checks; welcome skips bots; Dependabot applies `skip-changelog`.
 - README AUTO / CITATION / changelog compare URL track the GitHub repository name from the remote (after rename).
+- `changeset-version` create step: `continue-on-error` + warning when Actions cannot open the Version PR (Sen-only setting).
+- `.changeset/config.json` changelog path uses `../scripts/` so `@changesets/cli` 3 resolves the ESM adapter.
 
 [Unreleased]: https://github.com/LakeHouse-LLP/Template-LakeHouse-OpenSource/compare/HEAD...HEAD
