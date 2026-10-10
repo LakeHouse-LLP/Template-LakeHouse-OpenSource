@@ -40,9 +40,14 @@ jobs:
         run: npm ci
 
       - name: Validate changesets config (PR / merge queue)
-        if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
+        # Dependabot PRs never add changesets; skip status so version-pr stays green.
+        # merge_group actor is the queue bot — also match dependabot/* head refs.
+        if: >
+          (github.event_name == 'pull_request' || github.event_name == 'merge_group') &&
+          github.actor != 'dependabot[bot]' &&
+          !startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'dependabot/')
         env:
-          BASE_REF: ${{ github.base_ref }}
+          BASE_REF: ${{ github.base_ref || github.event.merge_group.base_ref || 'main' }}
         run: |
           npm run release:validate
           npm run check:pins
