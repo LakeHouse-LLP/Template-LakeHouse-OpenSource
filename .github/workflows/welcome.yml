@@ -28,11 +28,15 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
-    # Fork PRs: prefer pull_request_target (write token). Same-repo: either event is fine.
+    # Skip bots (Dependabot, etc.). Fork PRs: prefer pull_request_target (write token).
+    # Same-repo: either event is fine. Inputs must be snake_case for first-interaction v3.
     if: >
-      github.event_name == 'issues' ||
-      github.event_name == 'pull_request_target' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      !endsWith(github.actor, '[bot]') &&
+      (
+        github.event_name == 'issues' ||
+        github.event_name == 'pull_request_target' ||
+        github.event.pull_request.head.repo.full_name == github.repository
+      )
     steps:
       - name: First interaction
         # No checkout step — comment only (safe with pull_request_target).
