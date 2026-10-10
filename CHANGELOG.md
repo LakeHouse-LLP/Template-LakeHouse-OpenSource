@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SEO / discoverability: dark-only `brand/` (accent `#7DFFFF`), social preview, keyword-rich README, `CITATION.cff`, docs for org Astro Starlight site, launch/awesome/search checklists, and `check:discoverability` CI (GitHub-hosted).
 - Contributor growth: friendly CONTRIBUTING + Codespaces, ROADMAP/GOVERNANCE/SUPPORT, good first issue seeding guide, listings guide, maintainer playbook, all-contributors, and SHA-pinned welcome workflow (no PR checkout).
 - Vercel env-var rule pointer (`docs/deploy/vercel-env.md`) + AGENTS Never-do; canonical detail in org `.github`.
+- Merge queue preference for public `main`: `merge_group` on required workflows; CONTRIBUTING / AGENTS / Sen-only ruleset checklist (merge commits only).
+- Brand kit v0.3 subset: `brand/readme-header` README `<picture>`, palette base `#1E1E1E` / accent `#7DFFFF` / Geist, docs-site theme notes, WRITING-STYLE rules in AGENTS/CONTRIBUTING, and `check:writing-style` CI.
+- Continuous self-improvement: AGENTS house rule, [`docs/lessons.md`](./docs/lessons.md) log, and **What did we learn?** on the PR template.
+- Welcome workflow: `first-interaction` v3 snake_case inputs (`issue_message` / `pr_message` / `repo_token`).
 
 ### Fixed
 
@@ -26,5 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Guards, README AUTO badges, and citations no longer hardcode the GitHub org slug (brand + custom domain instead).
 - `org.json` domain is `REPLACE_WITH_CUSTOM_DOMAIN` (no assumed hostname); brand set to `LakeHouse`.
 - Changeset status on PRs compares against the PR base ref so stacked PRs validate.
+- Dependabot PRs: skip strict changelog and changeset-status checks; welcome skips bots; Dependabot applies `skip-changelog`.
+- README AUTO / CITATION / changelog compare URL track the GitHub repository name from the remote (after rename).
 
-[Unreleased]: https://github.com/LakeHouse-LLP/Template-OpenSource/compare/HEAD...HEAD
+[Unreleased]: https://github.com/LakeHouse-LLP/Template-LakeHouse-OpenSource/compare/HEAD...HEAD

@@ -17,7 +17,9 @@ Org runbook / shared defaults: the organization [`.github`](./docs/org.md) repos
 ## Merge policy
 
 - **Merge commits only** (no squash, no rebase-merge on GitHub).
-- Prefer small **stacked PRs**, merged bottom-up. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+- Prefer small **stacked PRs**, merged bottom-up. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/stacked-prs.md](./docs/stacked-prs.md).
+- This **public** template requires the **GitHub merge queue** on `main` (Free plan allows it for public org repos only). Required workflows include `merge_group:` so queued merges are checked on **GitHub-hosted** runners.
+- **Agents never enqueue or merge** PRs. Sen does (see Never do).
 
 ## License
 
@@ -31,12 +33,34 @@ Agents and automation must **never**:
 1. Change repository **visibility**, **settings**, **rulesets**, or **secrets**.
 2. **Force-push** to any branch on any remote.
 3. **Delete or rename** repositories, branches, or tags.
-4. **Merge** into `Template-*` repositories or into the org `.github` repository.
+4. **Merge** into `Template-*` repositories or into the org `.github` repository, or **enqueue** a PR into the merge queue.
 5. **Vendor** shared / org-common code into this tree (link or depend instead). Prefer `{owner}/.github` reusable workflows/docs when published.
 6. **Push to an unexpected remote** (see `npm run check:remote` / `scripts/check-wrong-remote.mjs`).
 7. **Hardcode the GitHub org slug** in workflows, docs, or badges (use `org.json`, `github.repository_owner`, brand, or custom domain).
 8. Add **LakeHouse widget** surfaces here (`widget.json`, `@lakehouse/widget-sdk`, host bridge/compat). Use Template-Widget.
-9. **Create, edit, or delete Vercel environment variables** (dashboard or `vercel env add` / `rm`) without Sen’s explicit approval. Prefer team Shared Env Vars + OIDC — see [docs/deploy/vercel-env.md](./docs/deploy/vercel-env.md).
+9. **Create, edit, or delete Vercel environment variables** (dashboard or `vercel env add` / `rm`) without Sen’s explicit approval. Prefer team Shared Env Vars + OIDC. See [docs/deploy/vercel-env.md](./docs/deploy/vercel-env.md).
+
+## Writing style (copy)
+
+Follow LakeHouse Studio WRITING-STYLE (canonical: `{owner}/.github/brand/WRITING-STYLE.md` when published). Agents and humans must:
+
+- **Zero em dashes and en dashes** (U+2014, U+2013). No Chinese 破折号. Use a period, comma, colon, parentheses, or a plain hyphen for ranges (`2-4`, `9:00-17:00`).
+- **No hype or filler wording** from brand WRITING-STYLE §7. The CI list lives in [`scripts/check-writing-style.mjs`](./scripts/check-writing-style.mjs). Prefer concrete verbs and numbers over marketing adjectives.
+- Warm, plain, confident. Say what changed and for whom. Sentence case. US English.
+- Brand name: **LakeHouse** / **LakeHouse Studio** (never Lakehouse or Lake House).
+
+Cheap CI: `npm run check:writing-style` (README, AGENTS, CONTRIBUTING, `brand/*.md`).
+
+Brand tokens for docs UI: dark base `#1E1E1E`, accent `#7DFFFF`, font **Geist** ([`brand/palette.json`](./brand/palette.json)).
+
+## Continuous self-improvement
+
+After each task, the agent notes any friction (false starts, brittle checks, missing docs, repeated manual steps) and either:
+
+1. **Fixes it in the same PR** when the change is small and in scope, or
+2. **Logs it** in [`docs/lessons.md`](./docs/lessons.md) with lesson, action, and status (`open` / `fixed` / `promoted`).
+
+Lessons that keep coming up get **promoted** to a house rule in this file, a script under `scripts/`, or a CI check. Fill the **What did we learn?** section in the PR template. Do not skip the note when the task felt smooth: write `none` or a one-line confirmation.
 
 ## Required local checks
 
@@ -52,6 +76,7 @@ npm run readme:gen             # refresh <!-- AUTO:* --> blocks
 npm run citation:gen           # refresh CITATION.cff from org.json
 npm run readme:check           # fail when README is stale
 npm run check:discoverability  # README first paragraph (+ topics/description on Actions)
+npm run check:writing-style    # no em/en dashes; banned hype words
 ```
 
 ## README autogen

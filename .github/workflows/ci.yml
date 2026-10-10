@@ -1,8 +1,10 @@
 # Action SHAs and org reusable-workflow catalog: .lakehouse/pins.json
+# merge_group: required so GitHub merge queue re-checks on GitHub-hosted runners.
 name: ci
 
 on:
   pull_request:
+  merge_group:
   push:
     branches: [main]
   workflow_dispatch:
@@ -70,8 +72,16 @@ jobs:
         env:
           DISCOVERABILITY_REQUIRE_METADATA: "false"
 
+      - name: Writing style (copy lint)
+        run: npm run check:writing-style
+
       - name: Changelog policy
-        if: github.event_name == 'pull_request'
+        # Dependabot bumps are labeled skip-changelog (see .github/dependabot.yml).
+        # Also skip by actor / dependabot/* head ref (merge queue actor is not Dependabot).
+        if: >
+          (github.event_name == 'pull_request' || github.event_name == 'merge_group') &&
+          github.actor != 'dependabot[bot]' &&
+          !startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'dependabot/')
         run: npm run check:changelog -- --strict
 
   gitleaks:

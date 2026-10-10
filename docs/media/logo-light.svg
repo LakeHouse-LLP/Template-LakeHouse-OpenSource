@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-label="LakeHouse">
-  <rect width="640" height="160" fill="#F7F4EF"/>
-  <circle cx="72" cy="80" r="36" fill="#0B6E4F"/>
-  <path d="M56 88h32v8H56z" fill="#F7F4EF"/>
-  <text x="128" y="94" font-family="Georgia, 'Times New Roman', serif" font-size="48" fill="#1A1A1A">LakeHouse</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="-20 -16.5 160 160" role="img" aria-label="LakeHouse Studio mark (mono)"><title>LakeHouse Studio mark (mono)</title><path d="M0 45 L26 25.5 V89 H56 V113 H0 Z" fill="#1E1E1E"/><path d="M64 3 L82 16.5 V65 H102 V31.5 L120 45 V113 H102 V83 H82 V113 H64 Z" fill="#1E1E1E"/><rect x="0" y="119" width="120" height="5" fill="#1E1E1E"/></svg>
