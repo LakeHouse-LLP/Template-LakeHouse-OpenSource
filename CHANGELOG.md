@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- [#23](https://github.com/LakeHouse-LLP/Template-LakeHouse-OpenSource/pull/23) [`021e6cb`](https://github.com/LakeHouse-LLP/Template-LakeHouse-OpenSource/commit/021e6cbed2746d59e43ce637a508c23631963f37) Thanks [@zsenarchitect](https://github.com/zsenarchitect)! - Revert temporary continue-on-error on changeset-version create step now that Actions create-PR is enabled.
+
 ## 0.2.0
 
 ### Minor Changes
