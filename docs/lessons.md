@@ -49,7 +49,7 @@ Status values: `open` | `fixed` | `promoted`.
 ### 2026-10-10 - changesets/action needs Actions create-PR setting
 
 - **Lesson:** With `@changesets/cli` v3 and `changesets/action` v2, push to `main` versions packages and updates `changeset-release/main`, then fails with "GitHub Actions is not permitted to create or approve pull requests" unless that Sen-only workflow permission is on.
-- **Action:** Document in `docs/sen-only-github-settings.md`. Workflow uses `continue-on-error` on the create step plus a warning so main CI stays green until Sen flips the toggle (or opens the Version PR by hand).
+- **Action:** Document in `docs/sen-only-github-settings.md`. Temporary `continue-on-error` was removed after Sen enabled the setting so real failures show red again.
 - **Status:** fixed
 
 ### 2026-10-10 - changesets CLI 3 changelog path is relative to .changeset/
