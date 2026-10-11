@@ -35,5 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `changeset-version` create step: `continue-on-error` + warning when Actions cannot open the Version PR (Sen-only setting).
 - `.changeset/config.json` changelog path uses `../scripts/` so `@changesets/cli` 3 resolves the ESM adapter.
 - Sen enabled Actions create-PR permission; checklist in `docs/sen-only-github-settings.md` marked done.
+- Version PR CI: DCO skips bot authors; `changeset status` skipped for `changeset-release/*` heads.
 
 [Unreleased]: https://github.com/LakeHouse-LLP/Template-LakeHouse-OpenSource/compare/HEAD...HEAD
