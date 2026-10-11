@@ -40,12 +40,14 @@ jobs:
         run: npm ci
 
       - name: Validate changesets config (PR / merge queue)
-        # Dependabot PRs never add changesets; skip status so version-pr stays green.
-        # merge_group actor is the queue bot — also match dependabot/* head refs.
+        # Skip when there are intentionally no pending changesets:
+        # - Dependabot (actor / dependabot/* head; merge_group actor is the queue bot)
+        # - changesets/action Version PR (changeset-release/* already consumed them)
         if: >
           (github.event_name == 'pull_request' || github.event_name == 'merge_group') &&
           github.actor != 'dependabot[bot]' &&
-          !startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'dependabot/')
+          !startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'dependabot/') &&
+          !startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'changeset-release/')
         env:
           BASE_REF: ${{ github.base_ref || github.event.merge_group.base_ref || 'main' }}
         run: |
@@ -55,6 +57,18 @@ jobs:
           # merge_group base_ref is main (only PRs targeting main enter the queue).
           git fetch origin "$BASE_REF" --depth=50
           npx changeset status --since="origin/$BASE_REF"
+
+      - name: Release files and pins (Version PR / Dependabot)
+        if: >
+          (github.event_name == 'pull_request' || github.event_name == 'merge_group') &&
+          (
+            github.actor == 'dependabot[bot]' ||
+            startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'dependabot/') ||
+            startsWith(github.head_ref || github.event.merge_group.head_ref || '', 'changeset-release/')
+          )
+        run: |
+          npm run release:validate
+          npm run check:pins
 
       - name: Create Version PR or CI tag
         # Never run on pull_request or merge_group — only after land on main.

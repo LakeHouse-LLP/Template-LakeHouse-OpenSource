@@ -63,3 +63,9 @@ Status values: `open` | `fixed` | `promoted`.
 - **Lesson:** Org/repo **Allow GitHub Actions to create and approve pull requests** must be on for `changesets/action` to open the Version PR. Cloud agent tokens may still lack `workflow_dispatch` / `actions: write` to re-run workflows; a push to `main` is the reliable trigger.
 - **Action:** Sen enabled the setting; trigger `changeset-version` via this merge to `main`.
 - **Status:** fixed
+
+### 2026-10-11 - Version PR CI: DCO and empty changesets
+
+- **Lesson:** `changesets/action` commits as `github-actions[bot]` without `Signed-off-by`, so DCO fails. The Version PR also fails `changeset status` because it already consumed the changesets. First-time workflow approval can also leave runs in `action_required` for that bot.
+- **Action:** Skip DCO for `*[bot]` authors; skip `changeset status` for `changeset-release/*` heads (still run release:validate + pins). Sen can approve waiting workflows once, or a signed empty commit from a human/agent can re-trigger.
+- **Status:** fixed
