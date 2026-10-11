@@ -57,3 +57,9 @@ Status values: `open` | `fixed` | `promoted`.
 - **Lesson:** `@changesets/cli` 3 (ESM) resolves `changelog` in `.changeset/config.json` from the `.changeset/` directory, so `./scripts/changeset-changelog.mjs` looks for `.changeset/scripts/...` and fails. Use `../scripts/changeset-changelog.mjs`.
 - **Action:** Updated config on the CLI 3 Dependabot branch before merge.
 - **Status:** fixed
+
+### 2026-10-11 - Actions create-PR permission enabled
+
+- **Lesson:** Org/repo **Allow GitHub Actions to create and approve pull requests** must be on for `changesets/action` to open the Version PR. Cloud agent tokens may still lack `workflow_dispatch` / `actions: write` to re-run workflows; a push to `main` is the reliable trigger.
+- **Action:** Sen enabled the setting; trigger `changeset-version` via this merge to `main`.
+- **Status:** fixed
