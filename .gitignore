@@ -64,6 +64,8 @@ Desktop.ini
 # Test / tool output
 actionlint-*.txt
 lychee-out.md
+# lychee-action writes its report here; keep it out of the weekly README PR
+lychee/
 results.sarif
 scorecard-*.json
 
